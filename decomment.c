@@ -145,6 +145,7 @@ int main(void) {
     int c; 
     int lineCount=1; 
     int line_error;
+    int first_starcount = 0; 
     enum Statetype state = START; 
     while ((c = getchar())!= EOF) {
         if(c == '\n') {
@@ -154,6 +155,7 @@ int main(void) {
         switch(state) {
             case START:
                 state = handleStartState(c); 
+                first_starcount = 0; 
                 break; 
          /*   case REG_CHARACTER:
                 state = handleReg_CharacterState(c); 
@@ -168,8 +170,11 @@ int main(void) {
                 state = handleFirstSlashState(c);
                 break; 
             case FIRSTSTAR:
+                if (first_starcount == 0) {
+                    line_error = lineCount; 
+                    first_starcount = 1; 
+                }
                 state = handleFirstStarState(c);
-                line_error = lineCount; 
                 break; 
             case NEXTSTAR:
                 state = handleNextStarState(c); 
@@ -186,7 +191,7 @@ int main(void) {
         putchar('/');
     }
     if (state == FIRSTSTAR || state == NEXTSTAR) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", line_error);
         exit(EXIT_FAILURE); 
     }
     else {
