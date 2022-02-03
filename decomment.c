@@ -144,11 +144,11 @@ enum Statetype handleNextStarState(int x) {
 `int main(void) {
     int c; 
     int lineCount=1; 
+    int line_error;
     enum Statetype state = START; 
     while ((c = getchar())!= EOF) {
         if(c == '\n') {
             lineCount++; 
-         
         }
         
         switch(state) {
@@ -169,6 +169,7 @@ enum Statetype handleNextStarState(int x) {
                 break; 
             case FIRSTSTAR:
                 state = handleFirstStarState(c);
+                line_error = lineCount; 
                 break; 
             case NEXTSTAR:
                 state = handleNextStarState(c); 
