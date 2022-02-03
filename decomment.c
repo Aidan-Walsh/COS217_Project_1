@@ -148,6 +148,7 @@ int main(void) {
     while ((c = getchar())!= EOF) {
         if(c == '\n') {
             lineCount++; 
+         
         }
         
         switch(state) {
