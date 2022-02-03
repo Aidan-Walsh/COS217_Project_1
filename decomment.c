@@ -141,7 +141,7 @@ enum Statetype handleNextStarState(int x) {
     return state; 
     
 }
-`int main(void) {
+int main(void) {
     int c; 
     int lineCount=1; 
     int line_error;
